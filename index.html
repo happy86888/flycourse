@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f0e6">
+  <meta name="description" content="BK 里程旅行課程報名表｜選擇課程方案並填寫基本資料。">
+  <title>BK 里程旅行課程｜報名</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=4.5.0">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body class="registration-page">
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <header class="registration-header">
+    <a class="brand" href="index.html" aria-label="返回課程介紹">
+      <span class="brand-mark">BK</span>
+      <span class="brand-copy"><b>COURSE REGISTRATION</b><small>里程旅行課程報名</small></span>
+    </a>
+    <a class="registration-back" href="index.html">← 返回課程介紹</a>
+  </header>
+
+  <main>
+    <section class="registration-hero">
+      <div class="container registration-hero-grid">
+        <div>
+          <p class="eyebrow dark">BK MILEAGE · REGISTRATION</p>
+          <h1>先選課程，<br>再留下基本資料。</h1>
+          <p>付款資訊會在下一步才顯示。請先選擇方案並填寫聯絡資料。</p>
+        </div>
+        <div class="registration-steps" aria-label="報名流程">
+          <div class="is-active"><span>01</span><b>選課程</b><small>選擇方案</small></div>
+          <div class="is-active"><span>02</span><b>填資料</b><small>基本資訊</small></div>
+          <div><span>03</span><b>付款</b><small>下一步顯示</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="registration-form-section">
+      <div class="container registration-layout">
+        <form class="course-registration-form" id="courseRegistrationForm" novalidate>
+          <section class="form-block" aria-labelledby="plan-title">
+            <div class="form-block-head">
+              <span>STEP 01</span>
+              <div><h2 id="plan-title">選擇報名方案</h2><p>19,800／29,800 建議先查看完整課程內容再決定。</p></div>
+            </div>
+
+            <div class="plan-options">
+              <label class="plan-option">
+                <input type="radio" name="course_plan" value="8000" required>
+                <span class="plan-check" aria-hidden="true"></span>
+                <span class="plan-content">
+                  <span class="plan-topline"><b>實體課程</b><strong>NT$ 8,000</strong></span>
+                  <span class="plan-description">4 小時工作坊小班制教學｜分組操作與現場查票實作</span>
+                </span>
+              </label>
+
+              <label class="plan-option plan-option-featured">
+                <input type="radio" name="course_plan" value="19800" required>
+                <span class="plan-check" aria-hidden="true"></span>
+                <span class="plan-content">
+                  <span class="plan-badge">含一次免費實體課</span>
+                  <span class="plan-topline"><b>完整課程</b><strong>NT$ 19,800</strong></span>
+                  <span class="plan-description">完整線上課程＋可免費參加一次 8,000 元實體工作坊。</span>
+                  <a class="plan-detail-link" href="http://fly.briankill.com/" target="_blank" rel="noopener">先回完整課程頁看細節 ↗</a>
+                </span>
+              </label>
+
+              <label class="plan-option plan-option-premium">
+                <input type="radio" name="course_plan" value="29800" required>
+                <span class="plan-check" aria-hidden="true"></span>
+                <span class="plan-content">
+                  <span class="plan-badge">實體課＋一對一</span>
+                  <span class="plan-topline"><b>進階課程</b><strong>NT$ 29,800</strong></span>
+                  <span class="plan-description">可免費參加一次實體課程，並包含一次免費實體一對一諮詢。</span>
+                  <a class="plan-detail-link" href="http://fly.briankill.com/" target="_blank" rel="noopener">先回完整課程頁看細節 ↗</a>
+                </span>
+              </label>
+            </div>
+
+            <div class="full-course-hint" id="fullCourseHint" hidden>
+              <b>選擇完整／進階課程前，建議先確認課程內容。</b>
+              <p>這兩個方案的內容比 8,000 元實體工作坊更完整，請先回 <a href="http://fly.briankill.com/" target="_blank" rel="noopener">fly.briankill.com ↗</a> 看詳細說明，再回來完成報名。</p>
+            </div>
+          </section>
+
+          <section class="form-block" aria-labelledby="contact-title">
+            <div class="form-block-head">
+              <span>STEP 02</span>
+              <div><h2 id="contact-title">填寫基本資料</h2><p>付款帳號不會在這一頁顯示，完成資料後再進入下一步。</p></div>
+            </div>
+
+            <div class="field-grid">
+              <label class="field"><span>怎麼稱呼你? <b>*</b></span><input type="text" name="name" autocomplete="name" required placeholder="例如 Brian"></label>
+              <label class="field"><span>手機 （沒有緊急或重要通知事項不會打）<b>*</b></span><input type="tel" name="phone" autocomplete="tel" required placeholder="09xxxxxxxx"></label>
+              <label class="field field-full"><span>Email <b>*</b></span><input type="email" name="email" autocomplete="email" required placeholder="name@example.com"></label>
+              <label class="field field-full"><span>如是實體課程，請寫報名哪個時間；如果有想告訴我的事，也一併留言</span><textarea name="note" rows="4" placeholder="例如：想報名 10/18 台北場；另外目前手上有國泰／滙豐點數……"></textarea></label>
+            </div>
+          </section>
+
+          <section class="form-block form-confirmation-block">
+            <button class="registration-submit" type="submit">下一步｜查看付款資訊 <span>→</span></button>
+            <p class="submit-note">下一頁才會顯示付款帳號與應付金額。</p>
+          </section>
+        </form>
+
+        <aside class="registration-sidebar">
+          <div class="sidebar-card sticky-card">
+            <span class="sidebar-eyebrow">YOUR SELECTION</span>
+            <h3 id="summaryPlan">尚未選擇課程</h3>
+            <div class="sidebar-price" id="summaryPrice">—</div>
+            <ul id="summaryBenefits"><li>請先從左側選擇課程方案</li></ul>
+            <div class="sidebar-divider"></div>
+            <p>對 19,800／29,800 有興趣？請先看完整課程頁確認細節。</p>
+            <a class="sidebar-link" href="http://fly.briankill.com/" target="_blank" rel="noopener">查看完整課程內容 ↗</a>
+            <a class="sidebar-line" href="https://lin.ee/PJLL2Zo" target="_blank" rel="noopener">有問題先 LINE 詢問</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="registration-footer"><div class="container"><span>BK MILEAGE WORKSHOP</span><a href="index.html">返回課程介紹 ↑</a></div></footer>
+  <script src="registration.js?v=2.0.0"></script>
+</body>
+</html>
