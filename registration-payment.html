@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f0e6">
+  <meta name="description" content="BK 里程旅行課程付款資訊與報名確認。">
+  <title>BK 里程旅行課程｜付款資訊</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=4.5.0">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body class="registration-page">
+  <div class="page-noise" aria-hidden="true"></div>
+
+  <header class="registration-header">
+    <a class="brand" href="index.html" aria-label="返回課程介紹">
+      <span class="brand-mark">BK</span>
+      <span class="brand-copy"><b>COURSE REGISTRATION</b><small>付款與報名確認</small></span>
+    </a>
+    <a class="registration-back" href="registration.html">← 返回修改資料</a>
+  </header>
+
+  <main>
+    <section class="registration-hero payment-hero">
+      <div class="container registration-hero-grid">
+        <div>
+          <p class="eyebrow dark">STEP 03 · PAYMENT</p>
+          <h1>確認方案後，<br>再完成付款。</h1>
+          <p>這一頁才會顯示付款資訊。轉帳完成後，只需要填寫轉出帳號末五碼。</p>
+        </div>
+        <div class="registration-steps" aria-label="報名流程">
+          <div class="is-done"><span>01</span><b>選課程</b><small>已完成</small></div>
+          <div class="is-done"><span>02</span><b>填資料</b><small>已完成</small></div>
+          <div class="is-active"><span>03</span><b>付款</b><small>目前步驟</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="registration-form-section">
+      <div class="container registration-layout">
+        <form class="course-registration-form" id="paymentRegistrationForm" novalidate>
+          <section class="form-block" aria-labelledby="payment-title">
+            <div class="form-block-head">
+              <span>STEP 03</span>
+              <div><h2 id="payment-title">付款資訊</h2><p>完成轉帳後，填入轉出帳號末五碼，方便核對。</p></div>
+            </div>
+
+            <div class="payment-account-card">
+              <div><small>TRANSFER ACCOUNT</small><span>付款帳號</span></div>
+              <div class="payment-account-detail">
+                <strong>中國信託</strong>
+                <span>銀行代碼 822</span>
+                <b id="paymentAccount">115540-345068</b>
+              </div>
+              <button type="button" class="copy-account" id="copyAccount">複製帳號</button>
+            </div>
+            <p class="payment-account-note">如銀行端產生轉帳手續費，可直接從應付金額扣除 NT$15 後匯款即可。</p>
+
+            <div class="payment-summary" aria-live="polite">
+              <span>本次應付金額</span>
+              <strong id="paymentAmount">—</strong>
+              <small id="feeAdjustedAmount" class="fee-adjusted-amount"></small>
+            </div>
+
+            <div class="field-grid payment-fields single-field-grid">
+              <label class="field"><span>付款帳號末五碼 <b>*</b></span><input type="text" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" name="payment_last5" required placeholder="例如 12345"><small>僅填轉出帳號最後 5 碼，不需要提供完整帳號。</small></label>
+            </div>
+          </section>
+
+          <section class="form-block form-confirmation-block">
+            <button class="registration-submit" type="submit">完成報名 <span>↗</span></button>
+            <p class="submit-note">完成後會顯示下一步：請私訊老師並輸入「報名成功」。</p>
+          </section>
+        </form>
+
+        <aside class="registration-sidebar">
+          <div class="sidebar-card sticky-card">
+            <span class="sidebar-eyebrow">REGISTRATION SUMMARY</span>
+            <h3 id="summaryPlan">課程方案</h3>
+            <div class="sidebar-price" id="summaryPrice">—</div>
+            <div class="sidebar-divider"></div>
+            <p><strong id="summaryName">—</strong><br><span id="summaryEmail">—</span></p>
+            <a class="sidebar-line" href="registration.html">返回修改資料</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="registration-footer"><div class="container"><span>BK MILEAGE WORKSHOP</span><a href="index.html">返回課程介紹 ↑</a></div></footer>
+  <script src="registration-payment.js?v=1.0.0"></script>
+</body>
+</html>
