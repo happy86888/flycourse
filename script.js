@@ -47,3 +47,17 @@
     }
   }));
 })();
+
+// V5.0 · prevent orphaned Chinese punctuation in large headings on mobile.
+(() => {
+  const selectors = '.hero h1, .section-heading h2, .intro h2, .small-group-copy h2, .special-copy h2, .compare-card h3, .prep-main h2, .pricing-copy h2, .about-copy h2, .final-grid h2';
+  const protect = root => {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      node.nodeValue = node.nodeValue.replace(/([\u3400-\u9FFFA-Za-z0-9）】」』》〉])([，。！？；：、])/g, '$1\u2060$2');
+    });
+  };
+  document.querySelectorAll(selectors).forEach(protect);
+})();

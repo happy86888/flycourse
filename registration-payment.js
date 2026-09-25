@@ -1,11 +1,14 @@
-(() => {
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyTnwYPq1zrMg5WfDIrnCkPH9w4RhKoP_IV1JgJY6yCDu2HqoTcPDshOnXX5iinzxcD/exec'; // Google Apps Script Web App endpoint
-  const PAYMENT_ACCOUNT = '115540-345068';
+(async () => {
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyTnwYPq1zrMg5WfDIrnCkPH9w4RhKoP_IV1JgJY6yCDu2HqoTcPDshOnXX5iinzxcD/exec';
   const DRAFT_KEY = 'bk_course_registration_draft_v3';
   const SUCCESS_KEY = 'bk_course_registration_success_v1';
 
   const form = document.getElementById('paymentRegistrationForm');
   if (!form) return;
+
+  // 先等報名狀態確認，避免額滿時付款頁還短暫顯示帳號。
+  try { await (window.BK_REGISTRATION_STATUS_READY || Promise.resolve({})); } catch (_) {}
+  if (window.BK_REGISTRATION_CLOSED) return;
 
   let draft = {};
   try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || '{}'); } catch (_) {}
@@ -28,32 +31,83 @@
 
   const currency = n => `NT$ ${Number(n).toLocaleString('zh-TW')}`;
   const paymentAmount = document.getElementById('paymentAmount');
+  const paymentBankName = document.getElementById('paymentBankName');
+  const paymentBankCode = document.getElementById('paymentBankCode');
   const paymentAccount = document.getElementById('paymentAccount');
-  const feeAdjustedAmount = document.getElementById('feeAdjustedAmount');
+  const paymentNote = document.getElementById('paymentNote');
+  const paymentLoadError = document.getElementById('paymentLoadError');
   const copyAccount = document.getElementById('copyAccount');
   const summaryPlan = document.getElementById('summaryPlan');
   const summaryPrice = document.getElementById('summaryPrice');
   const summaryName = document.getElementById('summaryName');
   const summaryEmail = document.getElementById('summaryEmail');
   const last5 = form.querySelector('input[name="payment_last5"]');
+  const submitBtn = form.querySelector('.registration-submit');
 
   paymentAmount.textContent = currency(meta.price);
-  if (feeAdjustedAmount) feeAdjustedAmount.textContent = `若銀行端產生手續費，可匯 ${currency(meta.price - 15)}（已扣 NT$15）`;
   summaryPlan.textContent = meta.title;
   summaryPrice.textContent = currency(meta.price);
   summaryName.textContent = draft.name;
   summaryEmail.textContent = draft.email;
 
-  if (PAYMENT_ACCOUNT && paymentAccount) paymentAccount.textContent = PAYMENT_ACCOUNT;
+  let livePaymentAccount = '';
+
+  function loadPaymentConfig() {
+    return new Promise((resolve, reject) => {
+      const callback = `__bkPaymentConfig_${Date.now()}`;
+      const script = document.createElement('script');
+      let done = false;
+
+      const cleanup = () => {
+        if (done) return;
+        done = true;
+        script.remove();
+        try { delete window[callback]; } catch (_) {}
+      };
+
+      window[callback] = payload => {
+        cleanup();
+        resolve(payload || {});
+      };
+
+      script.src = `${FORM_ENDPOINT}?action=payment&callback=${encodeURIComponent(callback)}&_=${Date.now()}`;
+      script.async = true;
+      script.onerror = () => {
+        cleanup();
+        reject(new Error('PAYMENT_CONFIG_LOAD_FAILED'));
+      };
+      document.head.appendChild(script);
+    });
+  }
+
+  try {
+    const config = await loadPaymentConfig();
+    if (config.open === false) {
+      window.location.replace('registration.html');
+      return;
+    }
+
+    livePaymentAccount = String(config.bank_account || '').trim();
+    paymentBankName.textContent = String(config.bank_name || '—');
+    paymentBankCode.textContent = config.bank_code ? `銀行代碼 ${config.bank_code}` : '銀行代碼 —';
+    paymentAccount.textContent = livePaymentAccount || '付款帳號載入失敗';
+    paymentNote.textContent = String(config.payment_note || '');
+
+    if (!livePaymentAccount) throw new Error('PAYMENT_ACCOUNT_EMPTY');
+  } catch (_) {
+    if (paymentLoadError) paymentLoadError.hidden = false;
+    if (submitBtn) submitBtn.disabled = true;
+    if (copyAccount) copyAccount.disabled = true;
+  }
 
   last5.addEventListener('input', () => {
     last5.value = last5.value.replace(/\D/g, '').slice(0, 5);
   });
 
   copyAccount?.addEventListener('click', async () => {
-    if (!PAYMENT_ACCOUNT) return;
+    if (!livePaymentAccount) return;
     try {
-      await navigator.clipboard.writeText(PAYMENT_ACCOUNT);
+      await navigator.clipboard.writeText(livePaymentAccount);
       const old = copyAccount.textContent;
       copyAccount.textContent = '已複製';
       setTimeout(() => { copyAccount.textContent = old; }, 1200);
@@ -81,22 +135,16 @@
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    if (!form.reportValidity()) return;
+    if (!form.reportValidity() || !livePaymentAccount) return;
 
     const data = buildPayload();
-    const submitBtn = form.querySelector('.registration-submit');
     const originalText = submitBtn.innerHTML;
-
-    if (!FORM_ENDPOINT) {
-      goToSuccess(data, false);
-      return;
-    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = '送出中…';
 
     try {
-      // Apps Script 跨網域送出採 simple request + no-cors，避免瀏覽器預檢 CORS 擋住。
+      // Apps Script 跨網域送出採 simple request + no-cors，避免預檢 CORS。
       await fetch(FORM_ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',

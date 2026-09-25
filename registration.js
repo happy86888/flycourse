@@ -1,6 +1,7 @@
 (() => {
   const form = document.getElementById('courseRegistrationForm');
   if (!form) return;
+  if (window.BK_REGISTRATION_CLOSED) return;
 
   const DRAFT_KEY = 'bk_course_registration_draft_v3';
   const planInputs = [...form.querySelectorAll('input[name="course_plan"]')];

@@ -1,33 +1,35 @@
-# Google Sheet 串接設定
+# Google Apps Script 更新說明（v5.0）
 
-目標 Google Sheet：
-https://docs.google.com/spreadsheets/d/14H_UN89Pc49Wxa1wvOB96nTyfaH0xptDKQTyXvzDYho/edit
+此版本會自動建立 Google Sheet 的「設定」分頁，並把報名開關、額滿文字與銀行匯款資訊集中管理。
 
-## 1. 打開 Apps Script
-在 Google Sheet 中選：
-「擴充功能」→「Apps Script」
+## 更新
 
-## 2. 貼入 Code.gs
-把 `Code.gs` 內容全部貼到 Apps Script 編輯器，取代原本程式。
+1. Google Sheet → 擴充功能 → Apps Script
+2. 用本資料夾 `Code.gs` 完整取代舊程式
+3. 儲存
+4. 部署 → 管理部署作業
+5. 編輯目前的 Web App 部署
+6. 版本選「新版本」
+7. 部署
 
-## 3. 部署成 Web App
-右上角：
-「部署」→「新增部署作業」→ 類型選「網頁應用程式」
+部署後網址仍使用原本：
+`https://script.google.com/macros/s/AKfycbyTnwYPq1zrMg5WfDIrnCkPH9w4RhKoP_IV1JgJY6yCDu2HqoTcPDshOnXX5iinzxcD/exec`
 
-設定：
-- 執行身分：我
-- 誰可以存取：任何人
+## 「設定」分頁沒有出現？
 
-按「部署」並完成 Google 授權。
+新版部署完成後，只要重新整理 `https://course.briankill.com/` 一次，網站會呼叫 status API，Apps Script 會自動建立「設定」分頁。
 
-## 4. 複製 Web App URL
-會得到類似：
-https://script.google.com/macros/s/AKfycb.../exec
+也可以在 Apps Script 編輯器中手動執行一次：
+`setupCourseSettings`
 
-把這個 `/exec` 網址傳回 ChatGPT，即可寫入網站 `registration-payment.js`。
+## 設定欄位
 
-## 報名資料會存在哪裡？
-同一張 Google Sheet 裡會自動建立（或使用）分頁：`報名資料`
+- B2：開放報名（勾選＝開放；取消＝額滿）
+- B3：額滿標題
+- B4：額滿說明
+- B6：銀行名稱
+- B7：銀行代碼
+- B8：匯款帳號
+- B9：匯款提醒
 
-欄位：
-報名時間 / 課程方案 / 金額 / 怎麼稱呼你 / 手機 / Email / 實體課場次・留言 / 付款末五碼 / 付款確認 / 處理狀態
+付款頁會即時讀取 B6:B9；之後更換匯款帳號，不必再修改網站檔案。

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" class="registration-status-loading">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4.5.0">
+  <link rel="stylesheet" href="styles.css?v=5.0.0">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body class="registration-page">
@@ -51,18 +51,18 @@
             <div class="payment-account-card">
               <div><small>TRANSFER ACCOUNT</small><span>付款帳號</span></div>
               <div class="payment-account-detail">
-                <strong>中國信託</strong>
-                <span>銀行代碼 822</span>
-                <b id="paymentAccount">115540-345068</b>
+                <strong id="paymentBankName">載入中…</strong>
+                <span id="paymentBankCode">銀行代碼 —</span>
+                <b id="paymentAccount">載入中…</b>
               </div>
               <button type="button" class="copy-account" id="copyAccount">複製帳號</button>
             </div>
-            <p class="payment-account-note">如銀行端產生轉帳手續費，可直接從應付金額扣除 NT$15 後匯款即可。</p>
+            <p class="payment-account-note"><strong>手續費說明：</strong><span id="paymentNote">載入中…</span></p>
+            <p class="payment-load-error" id="paymentLoadError" hidden>付款資訊目前無法載入，請先不要匯款，並透過 LINE 聯絡老師。</p>
 
             <div class="payment-summary" aria-live="polite">
               <span>本次應付金額</span>
               <strong id="paymentAmount">—</strong>
-              <small id="feeAdjustedAmount" class="fee-adjusted-amount"></small>
             </div>
 
             <div class="field-grid payment-fields single-field-grid">
@@ -91,6 +91,7 @@
   </main>
 
   <footer class="registration-footer"><div class="container"><span>BK MILEAGE WORKSHOP</span><a href="index.html">返回課程介紹 ↑</a></div></footer>
-  <script src="registration-payment.js?v=1.0.0"></script>
+  <script src="registration-status.js?v=2.0.0"></script>
+  <script src="registration-payment.js?v=2.0.0"></script>
 </body>
 </html>

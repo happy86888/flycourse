@@ -470,3 +470,89 @@ img{display:block;max-width:100%;height:auto}
   .payment-account-detail b{font-size:22px;white-space:normal;overflow-wrap:anywhere}
   .copy-account{justify-self:start}
 }
+
+/* V4.9 · registration availability control */
+.registration-status-loading .registration-page main{visibility:hidden}
+.registration-closed-section{min-height:calc(100vh - 150px);display:grid;align-items:center;padding:110px 0 90px;background:linear-gradient(135deg,#fbf5ec,#f2e7da)}
+.registration-closed-card{max-width:800px;margin:auto;text-align:center;padding:56px 44px;border:1px solid #d9cdbc;border-radius:32px;background:#fffaf2;box-shadow:0 24px 70px rgba(53,39,29,.10)}
+.registration-closed-kicker{display:block;color:#a13d28;font-size:11px;font-weight:800;letter-spacing:.19em;margin-bottom:16px}
+.registration-closed-card h1{margin:0;font:600 clamp(46px,6vw,76px)/1 var(--serif);letter-spacing:-.03em;color:#201913}
+.registration-closed-card p{max-width:620px;margin:24px auto 0;color:#675d54;font-size:16px;line-height:1.9}
+.registration-closed-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px}
+.btn-ghost-warm{border:1px solid #cdbda9;color:#2b211a;background:#fffaf2;border-radius:999px}
+.registration-closed-link{opacity:.72}
+@media(max-width:640px){
+  .registration-closed-section{padding:80px 0 60px}
+  .registration-closed-card{padding:38px 22px;border-radius:24px}
+  .registration-closed-card h1{font-size:44px}
+  .registration-closed-actions{flex-direction:column}
+  .registration-closed-actions .btn{width:100%}
+}
+
+/* V5.0 · mobile headline typography + Sheet-managed payment config */
+.hero h1,
+.section-heading h2,
+.intro h2,
+.small-group-copy h2,
+.special-copy h2,
+.compare-card h3,
+.prep-main h2,
+.pricing-copy h2,
+.about-copy h2,
+.final-grid h2{
+  line-break:strict;
+  word-break:normal;
+  overflow-wrap:normal;
+  text-wrap:balance;
+}
+.payment-load-error{
+  margin:14px 0 0;
+  padding:13px 15px;
+  border:1px solid rgba(201,76,47,.28);
+  border-radius:14px;
+  background:#fff1eb;
+  color:#9c3826;
+  font-size:12px;
+  line-height:1.7;
+}
+.copy-account:disabled,.registration-submit:disabled{opacity:.45;cursor:not-allowed}
+
+@media(max-width:640px){
+  /* Desktop 手動斷行在手機改為自然斷行，避免「逗號 / 單一字」獨占一行。 */
+  .hero h1 br,
+  .section-heading h2 br,
+  .intro h2 br,
+  .small-group-copy h2 br,
+  .special-copy h2 br,
+  .prep-main h2 br,
+  .pricing-copy h2 br,
+  .about-copy h2 br,
+  .final-grid h2 br{display:none}
+
+  .hero h1{font-size:38px;line-height:1.16;letter-spacing:-.025em}
+  .section-heading h2,
+  .intro h2,
+  .special-copy h2,
+  .answers-title h2,
+  .prep-main h2,
+  .pricing-copy h2,
+  .about-copy h2,
+  .final-grid h2{font-size:32px;line-height:1.22;letter-spacing:-.02em}
+  .small-group-copy h2{font-size:34px;line-height:1.16}
+  .compare-card h3{font-size:27px;line-height:1.28;letter-spacing:-.015em}
+  .hero-lead{font-size:14px;line-height:1.9}
+}
+
+@media(max-width:390px){
+  .hero h1{font-size:35px;line-height:1.18}
+  .section-heading h2,
+  .intro h2,
+  .special-copy h2,
+  .answers-title h2,
+  .prep-main h2,
+  .pricing-copy h2,
+  .about-copy h2,
+  .final-grid h2{font-size:30px;line-height:1.24}
+  .small-group-copy h2{font-size:32px}
+  .compare-card h3{font-size:26px}
+}
