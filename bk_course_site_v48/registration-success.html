@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f0e6">
+  <meta name="description" content="BK 里程旅行課程報名後續步驟。">
+  <title>BK 里程旅行課程｜報名後續</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=4.4.0">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body class="registration-page success-page">
+  <div class="page-noise" aria-hidden="true"></div>
+  <header class="registration-header">
+    <a class="brand" href="index.html" aria-label="返回課程介紹">
+      <span class="brand-mark">BK</span>
+      <span class="brand-copy"><b>COURSE REGISTRATION</b><small>里程旅行課程報名</small></span>
+    </a>
+    <a class="registration-back" href="index.html">← 返回課程介紹</a>
+  </header>
+
+  <main class="success-main">
+    <section class="success-card-wrap">
+      <div class="success-card reveal visible">
+        <span class="success-kicker">ONE LAST STEP</span>
+        <div class="success-check" aria-hidden="true">✓</div>
+        <h1>資料填寫完成，<br>接下來請私訊老師。</h1>
+        <p class="success-lead">請開啟 LINE 私訊老師，並輸入：</p>
+        <div class="success-message">報名成功</div>
+        <p>這樣我才能快速核對你的報名資料，並提供<strong>課前問卷、課程場次與後續通知</strong>。</p>
+
+        <div class="success-plan" id="successPlanBox">
+          <span>你選擇的方案</span>
+          <strong id="successPlan">課程方案</strong>
+        </div>
+
+        <a class="btn btn-primary success-line-btn" href="https://lin.ee/PJLL2Zo" target="_blank" rel="noopener">私訊老師並輸入「報名成功」 <span>↗</span></a>
+        <small class="success-line-id">無法加入請搜尋 LINE：@tpq5223k</small>
+        <p class="success-note" id="successNote">為確保資料正確核對，請務必完成 LINE 私訊步驟。</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (() => {
+    const KEY = 'bk_course_registration_success_v1';
+    let data = {};
+    try { data = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (_) {}
+    const plan = document.getElementById('successPlan');
+    if (plan && data.course_plan) plan.textContent = data.course_plan;
+    const note = document.getElementById('successNote');
+    if (note && !data.sent) {
+      note.textContent = '為確保資料正確核對，請務必完成 LINE 私訊步驟；老師收到「報名成功」後會接續提供課前問卷。';
+    }
+  })();
+  </script>
+</body>
+</html>
